@@ -1,0 +1,36 @@
+{
+  "name": "Col.Net Grade Deposit",
+  "version": "1.0.1",
+  "description": "Deposit student grades into Col.Net",
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "activeTab",
+    "declarativeContent",
+    "storage",
+    "clipboardRead"
+  ],
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/16.png",
+      "24": "images/24.png",
+      "32": "images/32.png",
+      "64": "images/64.png",
+      "128": "images/128.png"
+    }
+  },
+  "icons": {
+    "16": "images/16.png",
+    "24": "images/24.png",
+    "32": "images/32.png",
+    "64": "images/64.png",
+    "128": "images/128.png"
+  }
+}
