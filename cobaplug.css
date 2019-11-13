@@ -1,0 +1,9 @@
+img.publish.result.icon {
+  width: 16px;
+  position: absolute;
+  left: -16px;
+}
+
+#cboTri ~ table.BlueTableau tr.Header + tr.Header ~ tr > td {
+    position: relative;
+}

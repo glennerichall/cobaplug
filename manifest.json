@@ -9,7 +9,6 @@
     ],
     "persistent": false
   },
-  "options_page": "options.html",
   "permissions": [
     "activeTab",
     "declarativeContent",
@@ -26,6 +25,13 @@
       "128": "images/128.png"
     }
   },
+  "content_scripts": [
+    {
+      "matches": ["https://www.collegealma.qc.ca/colnet/cahier.asp"],
+      "js": ["cobaplug.js"],
+      "css": ["cobaplug.css"]
+    }
+  ],
   "icons": {
     "16": "images/16.png",
     "24": "images/24.png",
