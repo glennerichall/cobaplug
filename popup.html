@@ -18,6 +18,7 @@
         box-sizing: border-box;
         /* line-height: var(--size); */
       }
+
       a {
         color: var(--color);
       }
@@ -71,12 +72,46 @@
         left: 4px;
         top: 4px;
       }
+
+      #reset{
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        cursor: pointer;
+      }
+
+      #reset > img {
+        width: 20px;
+        margin: auto;
+      }
+
+      #reset:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+      }
+
+      #reset:active {
+        filter: brightness(80%);
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      #ofdialog {
+        position: fixed;
+        top: -100em;
+      }
     </style>
   </head>
   <body>
+    <input id="ofdialog" type="file" />
     <textarea id="output"></textarea>
     <div id="version"></div>
-    <img id="logo" src="images/32.png">
+    <img id="logo" src="images/32.png" />
+    <div id="reset">
+      <img src="images/delete.svg" />
+    </div>
     <div id="drop" class="content">
       <div class="drop">
         <div>

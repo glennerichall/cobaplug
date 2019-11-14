@@ -8,29 +8,50 @@ const clipboard = document.getElementById("clipboard");
 const drop = document.getElementById("drop");
 const output = document.getElementById("output");
 const version = document.getElementById("version");
+const ofdialog = document.getElementById("ofdialog");
+const resetBtn = document.getElementById("reset");
 
 var manifestData = chrome.runtime.getManifest();
 version.innerText = manifestData.version;
 
-function send(content) {
+function call(proc, content) {
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-    chrome.tabs.sendMessage(
-      tabs[0].id,
-      { content, proc: "publish" },
-      response => {
-        console.log(response.farewell);
-      }
-    );
+    chrome.tabs.sendMessage(tabs[0].id, { content, proc }, response => {
+      console.log(response.result);
+    });
   });
 }
 
+resetBtn.onclick = () => {
+  call("reset");
+};
+
+drop.onclick = () => {
+  ofdialog.value = null;
+  ofdialog.click();
+};
+
+ofdialog.onchange = () => {
+  var file = ofdialog.files[0];
+  var reader = new FileReader();
+  reader.readAsText(file,'utf-8');
+  reader.onload = readerEvent => {
+    var content = readerEvent.target.result;
+    publish(content);
+  };
+};
+
+function send(content) {
+  call("publish", content);
+}
+
 function publish(content) {
-  console.log(content);
   send(content);
 }
 
 clipboard.onclick = async evt => {
   evt.preventDefault();
+  evt.stopPropagation();
   output.focus();
   document.execCommand("paste");
   output.blur();
@@ -38,7 +59,6 @@ clipboard.onclick = async evt => {
 };
 
 drop.ondrop = async evt => {
-  console.log("drag drop");
   drop.classList.remove("drag");
 
   // Prevent default behavior (Prevent file from being opened)

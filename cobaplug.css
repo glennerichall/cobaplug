@@ -1,9 +1,45 @@
 img.publish.result.icon {
   width: 16px;
   position: absolute;
-  left: -16px;
+  margin-left: -18px;
 }
 
 #cboTri ~ table.BlueTableau tr.Header + tr.Header ~ tr > td {
-    position: relative;
+  position: relative;
+}
+
+.alerts {
+  width: 400px;
+  height: 500px;
+  position: fixed;
+  right: 400px;
+  top: 10px;
+  font-size: 1.3em;
+}
+
+.alerts > .alert {
+  padding: 20px 10px 20px 10px;
+  margin: 10px;
+  border: 1px solid block;
+  transition: opacity 1s;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.alert.error {
+    border-color: rgb(143, 56, 56);
+    background-color: rgb(231, 84, 84);
+    color: white;
+}
+
+.alert.warning {
+    border-color: rgb(143, 130, 56);
+    background-color: rgb(231, 229, 84);
+}
+
+.alert.success {
+    border-color: rgb(63, 143, 56);
+    background-color: rgb(84, 231, 84);
 }
