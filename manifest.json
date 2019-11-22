@@ -1,7 +1,7 @@
 {
   "name": "Col.Net Grade Deposit",
-  "version": "1.0.1",
-  "description": "Deposit student grades into Col.Net",
+  "version": "1.0.2",
+  "description": "Aide au dépôt des notes dans Col.Net",
   "manifest_version": 2,
   "background": {
     "scripts": [
