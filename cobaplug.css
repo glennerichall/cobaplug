@@ -15,6 +15,7 @@ img.publish.result.icon {
   right: 400px;
   top: 10px;
   font-size: 1.3em;
+  pointer-events: none;
 }
 
 .alerts > .alert {
@@ -26,6 +27,7 @@ img.publish.result.icon {
   width: 100%;
   box-sizing: border-box;
   border-radius: 5px;
+  pointer-events: all;
 }
 
 .alert.error {
