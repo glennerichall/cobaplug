@@ -15,83 +15,88 @@ var manifestData = chrome.runtime.getManifest();
 version.innerText = manifestData.version;
 
 function call(proc, content) {
-  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-    chrome.tabs.sendMessage(tabs[0].id, { content, proc }, response => {
-      console.log(response.result);
+    chrome.tabs.query({active: true, currentWindow: true}, tabs => {
+        if (!chrome.runtime.lastError) {
+            chrome.tabs.sendMessage(tabs[0].id, {content, proc}, response => {
+                console.log(response);
+            });
+        } else {
+            console.log(chrome.runtime.lastError);
+        }
+
     });
-  });
 }
 
 resetBtn.onclick = () => {
-  call("reset");
+    call("reset");
 };
 
 drop.onclick = () => {
-  ofdialog.value = null;
-  ofdialog.click();
+    ofdialog.value = null;
+    ofdialog.click();
 };
 
 ofdialog.onchange = () => {
-  var file = ofdialog.files[0];
-  var reader = new FileReader();
-  reader.readAsText(file,'utf-8');
-  reader.onload = readerEvent => {
-    var content = readerEvent.target.result;
-    publish(content);
-  };
+    var file = ofdialog.files[0];
+    var reader = new FileReader();
+    reader.readAsText(file, 'utf-8');
+    reader.onload = readerEvent => {
+        var content = readerEvent.target.result;
+        publish(content);
+    };
 };
 
 function send(content) {
-  call("publish", content);
+    call("publish", content);
 }
 
 function publish(content) {
-  send(content);
+    send(content);
 }
 
 clipboard.onclick = async evt => {
-  evt.preventDefault();
-  evt.stopPropagation();
-  output.focus();
-  document.execCommand("paste");
-  output.blur();
-  publish(output.value);
+    evt.preventDefault();
+    evt.stopPropagation();
+    output.focus();
+    document.execCommand("paste");
+    output.blur();
+    publish(output.value);
 };
 
 drop.ondrop = async evt => {
-  drop.classList.remove("drag");
+    drop.classList.remove("drag");
 
-  // Prevent default behavior (Prevent file from being opened)
-  evt.preventDefault();
+    // Prevent default behavior (Prevent file from being opened)
+    evt.preventDefault();
 
-  let files = [];
-  if (evt.dataTransfer.items) {
-    for (var i = 0; i < evt.dataTransfer.items.length; i++) {
-      if (evt.dataTransfer.items[i].kind === "file") {
-        var file = evt.dataTransfer.items[i].getAsFile();
-        files.push(file);
-      }
+    let files = [];
+    if (evt.dataTransfer.items) {
+        for (var i = 0; i < evt.dataTransfer.items.length; i++) {
+            if (evt.dataTransfer.items[i].kind === "file") {
+                var file = evt.dataTransfer.items[i].getAsFile();
+                files.push(file);
+            }
+        }
+    } else {
+        for (var i = 0; i < evt.dataTransfer.files.length; i++) {
+            files.push(evt.dataTransfer.files[i]);
+        }
     }
-  } else {
-    for (var i = 0; i < evt.dataTransfer.files.length; i++) {
-      files.push(evt.dataTransfer.files[i]);
-    }
-  }
 
-  if (files.length) {
-    let content = await files[0].text();
-    publish(content);
-  }
+    if (files.length) {
+        let content = await files[0].text();
+        publish(content);
+    }
 };
 
 drop.ondragenter = () => {
-  drop.classList.add("drag");
+    drop.classList.add("drag");
 };
 
 drop.ondragleave = () => {
-  drop.classList.remove("drag");
+    drop.classList.remove("drag");
 };
 
 drop.ondragover = evt => {
-  evt.preventDefault();
+    evt.preventDefault();
 };
